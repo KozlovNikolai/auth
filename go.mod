@@ -1,6 +1,6 @@
-module github.com/olezhek28/microservices_course_boilerplate
+module github.com/KozlovNikolai/auth
 
-go 1.20
+go 1.21.4
 
 require (
 	github.com/golang/protobuf v1.5.3
