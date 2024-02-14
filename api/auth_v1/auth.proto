@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package auth_v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+//  https://github.com/KozlovNikolai/auth  - репозиторий проекта
+//  pkg - папка сгенерированных protobuf файлов
+//  auth_v1 - имя пакета
+option go_package = "https://github.com/KozlovNikolai/auth/pkg/auth_v1;auth_v1";
+
+enum Role {
+    ROLE_USER = 0;
+    ROLE_ADMIN = 1;
+}
+
+service Auth_V1 {//создаем сервисы
+    rpc Create(CreateRequest)returns(CreateResponse);//endpoint - создать пользователя
+    rpc Get(GetRequest)returns(GetResponse);//endpoint - получить инфо о пользователе
+    rpc Update(UpdateRequest)returns(google.protobuf.Empty);//endpoint - обновить данные пользователя       
+    rpc Delete(DeleteRequest)returns(google.protobuf.Empty);//endpoint - удалить пользователя(только запрос, ответа - нет)
+}
+//---
+message CreateRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+    string password_confirm = 4;
+    Role role = 5;
+}
+message CreateResponse {
+    int64 id = 1;
+}
+//---
+message GetRequest {
+    int64 id = 1;
+}
+message GetResponse{
+    int64 id = 1;
+    string name = 2;
+    string email = 3;
+    Role role = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+}
+//---
+message UpdateRequest{
+    int64 id = 1;
+    google.protobuf.StringValue name = 2;
+    google.protobuf.StringValue email = 3;
+    Role role = 4;
+}
+//---
+message DeleteRequest {
+    int64 id = 1;
+}
