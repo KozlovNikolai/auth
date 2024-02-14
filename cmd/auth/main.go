@@ -19,7 +19,7 @@ type server struct {
 	desc.UnimplementedAuth_V1Server
 }
 
-func (s *server) Create(ctx context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
+func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
 	var temp int64
 	if in.Role == desc.Role_ROLE_ADMIN {
 		temp = 1
@@ -36,7 +36,7 @@ func (s *server) Create(ctx context.Context, in *desc.CreateRequest) (*desc.Crea
 	return &desc.CreateResponse{Id: temp}, nil
 }
 
-func (s *server) Get(ctx context.Context, in *desc.GetRequest) (*desc.GetResponse, error) {
+func (s *server) Get(_ context.Context, in *desc.GetRequest) (*desc.GetResponse, error) {
 	fmt.Println("Get User")
 	var u desc.GetResponse
 	start := timestamppb.Now()
@@ -62,7 +62,7 @@ func (s *server) Get(ctx context.Context, in *desc.GetRequest) (*desc.GetRespons
 
 	return &u, nil
 }
-func (s *server) Update(ctx context.Context, in *desc.UpdateRequest) (*empty.Empty, error) {
+func (s *server) Update(_ context.Context, in *desc.UpdateRequest) (*empty.Empty, error) {
 	fmt.Println("Update User")
 	fmt.Printf("Received id: %d\n", in.Id)
 	fmt.Printf("Received name: %v\n", in.Name)
@@ -72,7 +72,7 @@ func (s *server) Update(ctx context.Context, in *desc.UpdateRequest) (*empty.Emp
 	return &empty.Empty{}, nil
 }
 
-func (s *server) Delete(ctx context.Context, in *desc.DeleteRequest) (*empty.Empty, error) {
+func (s *server) Delete(_ context.Context, in *desc.DeleteRequest) (*empty.Empty, error) {
 	fmt.Println("Delete User")
 	fmt.Printf("Received id: %d\n", in.Id)
 	return &empty.Empty{}, nil
