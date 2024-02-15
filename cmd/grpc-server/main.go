@@ -26,7 +26,7 @@ func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.Create
 	} else {
 		temp = 2
 	}
-	fmt.Println("Create User")
+	fmt.Println("Create  User")
 	fmt.Printf("Received name: %v\n", in.Name)
 	fmt.Printf("Received email: %v\n", in.Email)
 	fmt.Printf("Received password: %v\n", in.Password)
