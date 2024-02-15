@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	desc "github.com/KozlovNikolai/auth/pkg/auth_v1"
+	desc "github.com/KozlovNikolai/auth/pkg/user_v1"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -16,12 +16,12 @@ import (
 const grpcPort = 50051
 
 type server struct {
-	desc.UnimplementedAuth_V1Server
+	desc.UnimplementedUserV1Server
 }
 
 func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
 	var temp int64
-	if in.Role == desc.Role_ROLE_ADMIN {
+	if in.Role == desc.Role_ADMIN {
 		temp = 1
 	} else {
 		temp = 2
@@ -45,7 +45,7 @@ func (s *server) Get(_ context.Context, in *desc.GetRequest) (*desc.GetResponse,
 			Id:        in.Id,
 			Name:      "Mike",
 			Email:     "g@g.c",
-			Role:      desc.Role_ROLE_ADMIN,
+			Role:      desc.Role_ADMIN,
 			CreatedAt: start,
 			UpdatedAt: start,
 		}
@@ -54,7 +54,7 @@ func (s *server) Get(_ context.Context, in *desc.GetRequest) (*desc.GetResponse,
 			Id:        in.Id,
 			Name:      "Pam",
 			Email:     "p@p.r",
-			Role:      desc.Role_ROLE_USER,
+			Role:      desc.Role_USER,
 			CreatedAt: start,
 			UpdatedAt: start,
 		}
@@ -85,7 +85,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	reflection.Register(s)
-	desc.RegisterAuth_V1Server(s, &server{})
+	desc.RegisterUserV1Server(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	err = s.Serve(lis)
 	if err != nil {
