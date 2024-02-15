@@ -19,6 +19,7 @@ type server struct {
 	desc.UnimplementedUserV1Server
 }
 
+// Create is creating new user and respons his ID
 func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
 	var temp int64
 	if in.Role == desc.Role_ADMIN {
@@ -36,6 +37,7 @@ func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.Create
 	return &desc.CreateResponse{Id: temp}, nil
 }
 
+// Get returns data about user by his ID
 func (s *server) Get(_ context.Context, in *desc.GetRequest) (*desc.GetResponse, error) {
 	fmt.Println("Get User")
 	var u desc.GetResponse
@@ -62,6 +64,8 @@ func (s *server) Get(_ context.Context, in *desc.GetRequest) (*desc.GetResponse,
 
 	return &u, nil
 }
+
+// Update is updating data of user
 func (s *server) Update(_ context.Context, in *desc.UpdateRequest) (*empty.Empty, error) {
 	fmt.Println("Update User")
 	fmt.Printf("Received id: %d\n", in.Id)
@@ -72,6 +76,7 @@ func (s *server) Update(_ context.Context, in *desc.UpdateRequest) (*empty.Empty
 	return &empty.Empty{}, nil
 }
 
+// Delete is deleting user by his ID
 func (s *server) Delete(_ context.Context, in *desc.DeleteRequest) (*empty.Empty, error) {
 	fmt.Println("Delete User")
 	fmt.Printf("Received id: %d\n", in.Id)
