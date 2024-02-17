@@ -19,7 +19,7 @@ type server struct {
 	desc.UnimplementedUserV1Server
 }
 
-// Create is creating new user and respons his ID
+// Create is creating new user and return his ID
 func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
 	var temp int64
 	if in.Role == desc.Role_ADMIN {
