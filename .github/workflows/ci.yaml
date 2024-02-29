@@ -32,7 +32,7 @@ jobs:
 
   image-build-and-push:
     runs-on: ubuntu-22.04
-
+    needs: lint
     steps:
       - name: Checkout master
         uses: actions/checkout@v3
