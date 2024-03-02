@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-const grpcPort = 50061
+const grpcPort = 50051
 
 type server struct {
 	desc.UnimplementedUserV1Server
