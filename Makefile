@@ -14,7 +14,7 @@ get-deps:
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
-generate:
+generate-grpc:
 	make generate-user-api
 
 generate-user-api:
@@ -40,3 +40,11 @@ docker-build-and-push:
 run-into-server:
 	docker pull cr.selcloud.ru/msc/auth:v0.0.1
 	docker run -p 50061:50061 cr.selcloud.ru/msc/auth:v0.0.1
+
+docker-local-build-and-run:
+	-docker stop auth
+	-docker rm auth
+	-docker rmi auth:v0.0.1
+	docker buildx build --no-cache --platform linux/amd64 -t auth:v0.0.1 .
+	docker run --name auth -d -p 50061:50051 auth:v0.0.1
+
